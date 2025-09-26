@@ -1,0 +1,72 @@
+# Переменные окружения для InBack.ru
+# Автор: InBack.ru Team
+# Дата создания: $(date)
+
+# ОБЯЗАТЕЛЬНЫЕ ПЕРЕМЕННЫЕ (БЕЗ НИХ ПРИЛОЖЕНИЕ НЕ ЗАПУСТИТСЯ)
+# ================================================================
+
+# База данных PostgreSQL
+DATABASE_URL=postgresql://username:password@host:port/database
+
+# Секретный ключ для сессий (сгенерируйте случайную строку)
+SESSION_SECRET=your-super-secret-session-key-change-this-immediately
+
+# ПЕРЕМЕННЫЕ ДЛЯ EMAIL УВЕДОМЛЕНИЙ
+# ================================
+
+# SendGrid API ключ для отправки email
+SENDGRID_API_KEY=your-sendgrid-api-key
+
+# Email отправителя для системных уведомлений
+EMAIL_FROM=noreply@inback.ru
+
+# ПЕРЕМЕННЫЕ ДЛЯ TELEGRAM БОТА
+# ============================
+
+# Токен Telegram бота для уведомлений менеджерам
+TELEGRAM_BOT_TOKEN=your-telegram-bot-token
+
+# Chat ID для отправки уведомлений
+TELEGRAM_CHAT_ID=your-telegram-chat-id
+
+# ПЕРЕМЕННЫЕ ДЛЯ ИИ ФУНКЦИЙ
+# =========================
+
+# OpenAI API ключ для ИИ обработки данных
+OPENAI_API_KEY=your-openai-api-key
+
+# ПЕРЕМЕННЫЕ РАЗРАБОТКИ (ОПЦИОНАЛЬНО)
+# ===================================
+
+# Режим работы Flask
+FLASK_ENV=development
+
+# Включение отладки Flask
+FLASK_DEBUG=True
+
+# Уровень логирования
+LOG_LEVEL=INFO
+
+# ДОПОЛНИТЕЛЬНЫЕ ПЕРЕМЕННЫЕ (ЕСЛИ ИСПОЛЬЗУЮТСЯ)
+# =============================================
+
+# YandexGPT API (если используется)
+YANDEX_GPT_API_KEY=your-yandex-gpt-api-key
+
+# Домен приложения (для production)
+APP_DOMAIN=inback.ru
+
+# Порт приложения (обычно 5000 в Replit)
+PORT=5000
+
+# Максимальный размер загружаемых файлов (в байтах)
+MAX_CONTENT_LENGTH=16777216
+
+# ИНСТРУКЦИИ ПО НАСТРОЙКЕ:
+# ========================
+# 1. Скопируйте нужные переменные в .env файл или Replit Secrets
+# 2. Замените все "your-*" значения на реальные ключи и настройки
+# 3. Для генерации SESSION_SECRET используйте: python -c "import secrets; print(secrets.token_hex(32))"
+# 4. Создайте PostgreSQL базу данных в Replit и получите DATABASE_URL
+# 5. Зарегистрируйтесь в SendGrid для получения SENDGRID_API_KEY
+# 6. Создайте Telegram бота через @BotFather для получения TELEGRAM_BOT_TOKEN

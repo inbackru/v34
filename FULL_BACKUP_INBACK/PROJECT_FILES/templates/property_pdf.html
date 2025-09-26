@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ property.name or 'Объект недвижимости' }} - {{ presentation.title }}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DejaVu Sans', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #1f2937;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .header h2 {
+            color: #6b7280;
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 8px;
+        }
+        
+        .header .address {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .price-item {
+            text-align: center;
+        }
+        
+        .price-value {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .price-value.green { color: #059669; }
+        .price-value.blue { color: #2563eb; }
+        .price-value.purple { color: #7c3aed; }
+        .price-value.orange { color: #ea580c; }
+        
+        .price-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+        }
+        
+        .section h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .images-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .image-container {
+            height: 150px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #f3f4f6;
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .layout-container {
+            height: 200px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #f3f4f6;
+            margin-bottom: 15px;
+        }
+        
+        .layout-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .characteristics {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+        
+        .char-item {
+            background: #f8fafc;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .char-label {
+            font-weight: 600;
+            margin-right: 8px;
+            min-width: 80px;
+        }
+        
+        .complex-info {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        
+        .complex-info h4 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .complex-detail {
+            margin-bottom: 4px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .manager-comment {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        
+        .manager-comment h4 {
+            color: #1e40af;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .manager-comment p {
+            color: #374151;
+            font-size: 14px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-logo .icon {
+            background: #2563eb;
+            color: white;
+            padding: 8px;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .footer-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .footer-subtext {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        .footer-date {
+            font-size: 10px;
+            margin-top: 8px;
+        }
+
+        @page {
+            margin: 2cm;
+            size: A4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="header">
+            <h1>{{ property.name or 'Объект недвижимости' }}</h1>
+            <h2>{{ property.complex_name or 'ЖК не указан' }}</h2>
+            {% if property.address %}
+            <div class="address">{{ property.address }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Price Grid -->
+        <div class="price-grid">
+            <div class="price-item">
+                <div class="price-value green">{{ "{:,.0f}".format(property.price or 0) }} ₽</div>
+                <div class="price-label">Цена</div>
+            </div>
+            <div class="price-item">
+                <div class="price-value blue">{{ property.rooms or 0 }}</div>
+                <div class="price-label">Комнат</div>
+            </div>
+            <div class="price-item">
+                <div class="price-value purple">{{ property.area or 0 }} м²</div>
+                <div class="price-label">Площадь</div>
+            </div>
+            <div class="price-item">
+                <div class="price-value orange">{{ "{:,.0f}".format(property.price_per_sqm or 0) }} ₽/м²</div>
+                <div class="price-label">За м²</div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            
+            <!-- Left Column -->
+            <div>
+                
+                <!-- Images -->
+                {% set photos = property.property_info.get('photos') if property.property_info else [] %}
+                {% if photos %}
+                    {% if photos is string %}
+                        {% set photo_list = photos | from_json %}
+                    {% else %}
+                        {% set photo_list = photos %}
+                    {% endif %}
+                    
+                    {% if photo_list and photo_list | length > 0 %}
+                    <div class="section">
+                        <h3>Фотографии объекта</h3>
+                        <div class="images-grid">
+                            {% for photo in photo_list[:4] %}
+                            <div class="image-container">
+                                <img src="{{ photo }}" alt="Фото {{ loop.index }}">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% if photo_list | length > 4 %}
+                        <div style="font-size: 12px; color: #6b7280;">И еще {{ photo_list | length - 4 }} фотографий</div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                {% endif %}
+
+                <!-- Layout -->
+                {% set layout_image = property.property_info.get('layout_image') if property.property_info else null %}
+                {% if layout_image %}
+                <div class="section">
+                    <h3>Планировка</h3>
+                    <div class="layout-container">
+                        <img src="{{ layout_image }}" alt="Планировка">
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Right Column -->
+            <div>
+                
+                <!-- Characteristics -->
+                <div class="section">
+                    <h3>Характеристики</h3>
+                    <div class="characteristics">
+                        <div class="char-item">
+                            <span class="char-label">Комнат:</span>
+                            <span>{{ property.rooms or 'Не указано' }}</span>
+                        </div>
+                        <div class="char-item">
+                            <span class="char-label">Площадь:</span>
+                            <span>{{ property.area or 'Не указано' }} м²</span>
+                        </div>
+                        <div class="char-item">
+                            <span class="char-label">Этаж:</span>
+                            <span>{{ property.floor or 'Не указан' }} из {{ property.floors_total or 'н/д' }}</span>
+                        </div>
+                        <div class="char-item">
+                            <span class="char-label">Тип:</span>
+                            <span>{{ property.property_type or 'Квартира' }}</span>
+                        </div>
+                        {% if property.balcony %}
+                        <div class="char-item">
+                            <span class="char-label">Балкон:</span>
+                            <span>{{ property.balcony }}</span>
+                        </div>
+                        {% endif %}
+                        {% if property.renovation %}
+                        <div class="char-item">
+                            <span class="char-label">Отделка:</span>
+                            <span>{{ property.renovation }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Complex Info -->
+                {% if property.complex_name %}
+                <div class="section">
+                    <h3>Жилой комплекс</h3>
+                    <div class="complex-info">
+                        <h4>{{ property.complex_name }}</h4>
+                        {% if property.developer_name %}
+                        <div class="complex-detail">Застройщик: {{ property.developer_name }}</div>
+                        {% endif %}
+                        {% if property.district %}
+                        <div class="complex-detail">Район: {{ property.district }}</div>
+                        {% endif %}
+                        {% if property.completion_date %}
+                        <div class="complex-detail">Сдача: {{ property.completion_date }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Manager Comment -->
+                {% if collection_property and collection_property.manager_note %}
+                <div class="section">
+                    <div class="manager-comment">
+                        <h4>Комментарий менеджера</h4>
+                        <p>{{ collection_property.manager_note }}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-logo">
+                <div class="icon">🏢</div>
+                <div>
+                    <div class="footer-text">InBack - Недвижимость в Краснодаре</div>
+                    <div class="footer-subtext">Презентация: {{ presentation.title }}</div>
+                </div>
+            </div>
+            <div class="footer-date">Документ создан сегодня</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+# Конфигурация модулей для InBack.ru
+# Автор: InBack.ru Team
+# Дата создания: $(date)
+
+# ОБЯЗАТЕЛЬНЫЕ МОДУЛИ REPLIT
+# ==========================
+
+# Основной язык программирования
+python-3.11
+
+# База данных
+postgresql
+
+# УСТАНОВЛЕННЫЕ PYTHON ПАКЕТЫ
+# ============================
+# (из requirements.txt)
+
+email-validator==2.2.0
+flask==3.0.3
+flask-dance==7.0.0
+flask-login==0.6.3
+flask-sqlalchemy==3.1.1
+gunicorn==23.0.0
+numpy==2.1.3
+oauthlib==3.2.2
+openai==1.54.4
+openpyxl==3.1.5
+pandas==2.2.3
+psycopg2-binary==2.9.10
+pyjwt==2.9.0
+python-telegram-bot==21.6
+requests==2.32.3
+sendgrid==6.11.0
+sqlalchemy==2.0.36
+telegram==0.0.1
+werkzeug==3.0.4
+
+# ДОПОЛНИТЕЛЬНЫЕ СИСТЕМНЫЕ ЗАВИСИМОСТИ
+# ====================================
+
+# Для обработки изображений (если используется)
+pillow
+
+# Для работы с Excel файлами
+xlrd
+
+# Для кэширования (если используется)
+flask-caching
+
+# Для безопасности
+flask-wtf
+
+# НАСТРОЙКИ МОДУЛЕЙ В REPLIT:
+# ===========================
+
+1. Откройте раздел "Modules" в Replit
+2. Убедитесь, что установлены следующие модули:
+   - python-3.11 (или python-3.10)
+   - postgresql
+
+3. Если модули не установлены, добавьте их через интерфейс Modules
+
+# УСТАНОВКА PYTHON ЗАВИСИМОСТЕЙ:
+# ==============================
+
+# Автоматическая установка из requirements.txt:
+pip install -r requirements.txt
+
+# Ручная установка основных пакетов:
+pip install flask flask-sqlalchemy psycopg2-binary gunicorn
+pip install pandas openpyxl sendgrid python-telegram-bot
+pip install openai requests flask-login flask-wtf
+
+# ПРОВЕРКА УСТАНОВЛЕННЫХ ПАКЕТОВ:
+# ===============================
+
+# Список всех установленных пакетов:
+pip list
+
+# Проверка конкретного пакета:
+pip show flask
+
+# Создание requirements.txt из текущего окружения:
+pip freeze > requirements.txt
+
+# ОБНОВЛЕНИЕ ПАКЕТОВ:
+# ===================
+
+# Обновление всех пакетов:
+pip install --upgrade -r requirements.txt
+
+# Обновление конкретного пакета:
+pip install --upgrade flask
+
+# РЕШЕНИЕ ПРОБЛЕМ С МОДУЛЯМИ:
+# ===========================
+
+Если возникают ошибки импорта:
+1. Убедитесь, что пакет установлен: pip show package_name
+2. Переустановите пакет: pip uninstall package_name && pip install package_name
+3. Очистите кэш pip: pip cache purge
+
+Если возникают конфликты версий:
+1. Проверьте requirements.txt на совместимость версий
+2. Используйте виртуальное окружение (если возможно в Replit)
+3. Установите конкретные версии пакетов
+
+Если PostgreSQL не работает:
+1. Убедитесь, что модуль postgresql установлен в Replit
+2. Создайте базу данных через интерфейс Replit
+3. Проверьте переменную DATABASE_URL
+
+# ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ:
+# =========================
+
+# Переменные окружения для модулей:
+export PYTHONPATH="${PYTHONPATH}:."
+export FLASK_APP=main.py
+export FLASK_ENV=development
+
+# Настройки для production:
+export FLASK_ENV=production
+export PYTHONOPTIMIZE=1
